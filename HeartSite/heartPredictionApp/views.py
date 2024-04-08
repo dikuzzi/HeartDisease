@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import HeartData
 import csv
 
 import pandas as pd
@@ -90,7 +91,10 @@ def result(request):
         # num1 = float(request.POST['num1'])
         # num2 = float(request.POST['num2'])
 
-        data = pd.read_csv('HeartSite/heartPredictionApp/heart.csv')
+        all_data = HeartData.objects.all() # загрузка данных из БД
+        data = pd.DataFrame(list(all_data.values())) # преобразование в датафрейм
+
+        # data = pd.read_csv('HeartSite/heartPredictionApp/heart.csv') # загружаю данные из файла
 
         mms = MinMaxScaler()  # Normalization
         ss = StandardScaler()  # Standardization
@@ -113,7 +117,7 @@ def result(request):
         df1['Cholesterol'] = ss.fit_transform(df1[['Cholesterol']])
         df1['MaxHR'] = ss.fit_transform(df1[['MaxHR']])
 
-        features = df1[df1.columns.drop(['HeartDisease', 'RestingBP', 'RestingECG'])].values
+        features = df1[df1.columns.drop(['HeartDisease', 'RestingBP', 'RestingECG', 'id'])].values
         target = df1['HeartDisease'].values
         x_train, x_test, y_train, y_test = train_test_split(features, target, test_size=0.20, random_state=2)
 
@@ -142,7 +146,7 @@ def result(request):
                    "ST_Slope": in_ST_Slope}  # новая строка
 
         df2 = data.copy(deep=True)
-        columns_to_drop = ['HeartDisease', 'RestingBP', 'RestingECG']
+        columns_to_drop = ['HeartDisease', 'RestingBP', 'RestingECG', 'id']
         df2.drop(columns=columns_to_drop, axis=1, inplace=True)
 
         # df2 = df4[df4.columns.drop(['HeartDisease', 'RestingBP', 'RestingECG'])].values
