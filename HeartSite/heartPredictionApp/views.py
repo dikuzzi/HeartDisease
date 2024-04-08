@@ -15,6 +15,7 @@ import warnings
 warnings.filterwarnings('ignore')
 import joblib
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
+import pickle
 
 
 def index(request):
