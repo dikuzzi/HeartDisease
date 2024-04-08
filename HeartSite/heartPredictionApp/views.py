@@ -21,70 +21,6 @@ def index(request):
     return render(request, 'heartPredictionApp/index.html')  # передаем наш html файл из папки templates
 
 
-# def result(request):
-#     if request.method == 'POST':
-#         # num1 = float(request.POST['num1'])
-#         # num2 = float(request.POST['num2'])
-#
-#         mms = MinMaxScaler()  # Normalization
-#         ss = StandardScaler()  # Standardization
-#
-#         sex_mapping = {'M': 0, 'F': 1}
-#         ChestPainType_mapping = {'ATA': 0, 'NAP': 1, 'ASY': 2, 'TA': 3}
-#         RestingECG_mapping = {'Normal': 0, 'ST': 1, 'LVH': 2}
-#         ExerciseAngina_mapping = {'N': 0, 'Y': 1}
-#         ST_Slope_mapping = {'Up': 0, 'Flat': 1, 'Down': 2}
-#
-#         classifier_lr = joblib.load('HeartSite/heartPredictionApp/my_model1.joblib')
-#
-#         newData = pd.DataFrame({'Age': [28, 77], 'Sex': ["M", "M"],
-#                                 'ChestPainType': ['ASY', 'ASY'], 'Cholesterol': [0, 603], 'FastingBS': [0, 1],
-#                                 'MaxHR': [60, 202], 'ExerciseAngina': ['Y', 'Y'], 'Oldpeak': [-2.6, 6.2],
-#                                 'ST_Slope': ['Flat', 'Flat']})
-#
-#         in_Age = request.POST['num1']
-#         in_Sex = request.POST['num2']
-#         in_ChestPainType = request.POST['num3']
-#         in_Cholesterol = request.POST['num4']
-#         in_FastingBS = request.POST['num5']
-#         in_MaxHR = request.POST['num6']
-#         in_ExerciseAngina = request.POST['num7']
-#         in_Oldpeak = request.POST['num8']
-#         in_ST_Slope = request.POST['num9']
-#
-#         newDict = {"Age": in_Age, "Sex": in_Sex, "ChestPainType": in_ChestPainType,
-#                    "Cholesterol": in_Cholesterol, "FastingBS": in_FastingBS, "MaxHR": in_MaxHR,
-#                    "ExerciseAngina": in_ExerciseAngina, "Oldpeak": in_Oldpeak,
-#                    "ST_Slope": in_ST_Slope}  # новая строка
-#         newData = newData._append(newDict, ignore_index=True)
-#
-#         dfNew = newData.copy(deep=True)
-#
-#         dfNew['Sex'] = dfNew['Sex'].map(sex_mapping)
-#         dfNew['ChestPainType'] = dfNew['ChestPainType'].map(ChestPainType_mapping)
-#         dfNew['ExerciseAngina'] = dfNew['ExerciseAngina'].map(ExerciseAngina_mapping)
-#         dfNew['ST_Slope'] = dfNew['ST_Slope'].map(ST_Slope_mapping)
-#         dfNew['Oldpeak'] = mms.fit_transform(dfNew[['Oldpeak']])
-#         dfNew['Age'] = ss.fit_transform(dfNew[['Age']])
-#         dfNew['Cholesterol'] = ss.fit_transform(dfNew[['Cholesterol']])
-#         dfNew['MaxHR'] = ss.fit_transform(dfNew[['MaxHR']])
-#
-#         dfNew.drop(1, inplace=True)
-#         dfNew.drop(0, inplace=True)
-#
-#         predicted_output = classifier_lr.predict(dfNew)
-#
-#         result2 = "error"
-#         if predicted_output[0] == 0:
-#             result2 = 'Нет ишемической болезни сердца'
-#             color = 'green'
-#         elif predicted_output[0] == 1:
-#             color = 'red'
-#             result2 = 'Есть ишемическая болезнь сердца'
-#
-#         return render(request, 'heartPredictionApp/result.html', {'result': result2, 'color': color})
-#     return HttpResponse('Method Not Allowed')
-
 
 def result(request):
     if request.method == 'POST':
@@ -177,3 +113,69 @@ def result(request):
 
         return render(request, 'heartPredictionApp/result.html', {'result': result2, 'color': color})
     return HttpResponse('Method Not Allowed')
+
+
+# def result(request):
+#     if request.method == 'POST':
+#         # num1 = float(request.POST['num1'])
+#         # num2 = float(request.POST['num2'])
+#
+#         mms = MinMaxScaler()  # Normalization
+#         ss = StandardScaler()  # Standardization
+#
+#         sex_mapping = {'M': 0, 'F': 1}
+#         ChestPainType_mapping = {'ATA': 0, 'NAP': 1, 'ASY': 2, 'TA': 3}
+#         RestingECG_mapping = {'Normal': 0, 'ST': 1, 'LVH': 2}
+#         ExerciseAngina_mapping = {'N': 0, 'Y': 1}
+#         ST_Slope_mapping = {'Up': 0, 'Flat': 1, 'Down': 2}
+#
+#         classifier_lr = joblib.load('HeartSite/heartPredictionApp/my_model1.joblib')
+#
+#         newData = pd.DataFrame({'Age': [28, 77], 'Sex': ["M", "M"],
+#                                 'ChestPainType': ['ASY', 'ASY'], 'Cholesterol': [0, 603], 'FastingBS': [0, 1],
+#                                 'MaxHR': [60, 202], 'ExerciseAngina': ['Y', 'Y'], 'Oldpeak': [-2.6, 6.2],
+#                                 'ST_Slope': ['Flat', 'Flat']})
+#
+#         in_Age = request.POST['num1']
+#         in_Sex = request.POST['num2']
+#         in_ChestPainType = request.POST['num3']
+#         in_Cholesterol = request.POST['num4']
+#         in_FastingBS = request.POST['num5']
+#         in_MaxHR = request.POST['num6']
+#         in_ExerciseAngina = request.POST['num7']
+#         in_Oldpeak = request.POST['num8']
+#         in_ST_Slope = request.POST['num9']
+#
+#         newDict = {"Age": in_Age, "Sex": in_Sex, "ChestPainType": in_ChestPainType,
+#                    "Cholesterol": in_Cholesterol, "FastingBS": in_FastingBS, "MaxHR": in_MaxHR,
+#                    "ExerciseAngina": in_ExerciseAngina, "Oldpeak": in_Oldpeak,
+#                    "ST_Slope": in_ST_Slope}  # новая строка
+#         newData = newData._append(newDict, ignore_index=True)
+#
+#         dfNew = newData.copy(deep=True)
+#
+#         dfNew['Sex'] = dfNew['Sex'].map(sex_mapping)
+#         dfNew['ChestPainType'] = dfNew['ChestPainType'].map(ChestPainType_mapping)
+#         dfNew['ExerciseAngina'] = dfNew['ExerciseAngina'].map(ExerciseAngina_mapping)
+#         dfNew['ST_Slope'] = dfNew['ST_Slope'].map(ST_Slope_mapping)
+#         dfNew['Oldpeak'] = mms.fit_transform(dfNew[['Oldpeak']])
+#         dfNew['Age'] = ss.fit_transform(dfNew[['Age']])
+#         dfNew['Cholesterol'] = ss.fit_transform(dfNew[['Cholesterol']])
+#         dfNew['MaxHR'] = ss.fit_transform(dfNew[['MaxHR']])
+#
+#         dfNew.drop(1, inplace=True)
+#         dfNew.drop(0, inplace=True)
+#
+#         predicted_output = classifier_lr.predict(dfNew)
+#
+#         result2 = "error"
+#         if predicted_output[0] == 0:
+#             result2 = 'Нет ишемической болезни сердца'
+#             color = 'green'
+#         elif predicted_output[0] == 1:
+#             color = 'red'
+#             result2 = 'Есть ишемическая болезнь сердца'
+#
+#         return render(request, 'heartPredictionApp/result.html', {'result': result2, 'color': color})
+#     return HttpResponse('Method Not Allowed')
+
