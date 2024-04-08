@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Главная страница</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <form action="{% url 'result' %}" method="post"
+          style="margin: 40px 15vw; padding: 20px 0; border: 3px #0d6efd solid; border-radius: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+        {% csrf_token %}
+        <div class="py-5 text-center">
+          <img class="d-block mx-auto mb-4"
+               src="https://img.freepik.com/premium-vector/anatomical-heart-isolated_165488-1048.jpg"
+               alt="" width="144" height="114">
+          <h2>Прогнозирование ишемической болезни сердца</h2>
+          <p class="lead">Введите свои данные и узнайте, есть ли у вас ишемическая болезнь сердца</p>
+        </div>
+
+        <div style="display: flex; justify-content: space-evenly; margin-bottom: 20px;">
+
+
+<!--            <div class="col-md-6" style="width: 30%">-->
+<!--                  <label for="num2" class="form-label">Пол</label>-->
+<!--                  <input type="text" class="form-control" name="num2" id="num2" placeholder="" required="">-->
+<!--                  <div class="invalid-feedback">-->
+<!--                    Credit card number is required-->
+<!--                  </div>-->
+<!--            </div>-->
+
+            <div class="col-md-4" style="width: 30%">
+                 <label for="num2" class="form-label">Пол</label>
+                  <select class="form-select" name="num2" id="num2" required="">
+                      <option value="M">Мужской</option>
+                      <option value="F">Женский</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+            </div>
+
+            <div class="col-md-6" style="width: 30%">
+                  <label for="num1" class="form-label">Возраст</label>
+                  <input type="text" class="form-control" name="num1" id="num1" placeholder="" required="">
+                  <div class="invalid-feedback">
+                    Credit card number is required
+                  </div>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-evenly; margin-bottom: 20px;">
+            <div class="col-md-4" style="width: 30%">
+                 <label for="num3" class="form-label">Тип грудной боли</label>
+                  <select class="form-select" name="num3" id="num3" required="">
+                      <option value="ATA">Атипичная стенокардия</option>
+                      <option value="TA">Типичная стенокардия</option>
+                      <option value="NAP">Не ангинозная боль</option>
+                      <option value="ASY">Бессимптомная</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+            </div>
+
+            <div class="col-md-6" style="width: 30%">
+                  <label for="num4" class="form-label">Уровень холестерина</label>
+                  <input type="text" class="form-control" name="num4" id="num4" placeholder="" required="">
+                  <div class="invalid-feedback">
+                    Credit card number is required
+                  </div>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-evenly; margin-bottom: 20px;">
+            <div class="col-md-4" style="width: 30%">
+                 <label for="num5" class="form-label">Уровень сахара</label>
+                  <select class="form-select" name="num5" id="num5" required="">
+                      <option value="1">> 120 мг/дл</option>
+                      <option value="0">< 120 мг/дл</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+            </div>
+
+            <div class="col-md-6" style="width: 30%">
+                  <label for="num6" class="form-label">Максимальная частота пульса</label>
+                  <input type="text" class="form-control" name="num6" id="num6" placeholder="" required="">
+                  <div class="invalid-feedback">
+                    Credit card number is required
+                  </div>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-evenly; margin-bottom: 20px;">
+            <div class="col-md-4" style="width: 30%">
+                  <label for="num9" class="form-label">Наклон сегмента ST</label>
+                  <select class="form-select" name="num9" id="num9" required="">
+                      <option value="Flat">Ровный</option>
+                      <option value="Up">Вверх</option>
+                      <option value="Down">Вниз</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+            </div>
+
+            <div class="col-md-6" style="width: 30%">
+                  <label for="num8" class="form-label">Пиковый низкий ST</label>
+                  <input type="text" class="form-control" name="num8" id="num8" placeholder="" required="">
+                  <div class="invalid-feedback">
+                    Credit card number is required
+                  </div>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-evenly; margin-bottom: 20px;">
+            <div class="col-md-4" style="width: 35%">
+                 <label for="num7" class="form-label">Стенокардия, вызванная физической нагрузкой</label>
+                  <select class="form-select" name="num7" id="num7" required="">
+                      <option value="Y">Да</option>
+                      <option value="N">Нет</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+            </div>
+        </div>
+
+
+
+        <div style="width: 100%; text-align: center; margin-top: 50px;">
+            <button class="w-100 btn btn-primary btn-lg" type="submit"
+                style="width: 73% !important;">Рассчитать</button>
+        </div>
+    </form>
+</body>
+</html>
