@@ -13,4 +13,3 @@ class HeartData(models.Model):
     Oldpeak = models.DecimalField(max_digits=3, decimal_places=2)
     ST_Slope = models.CharField(max_length=4)
     HeartDisease = models.IntegerField()
-
