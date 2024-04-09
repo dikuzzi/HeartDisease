@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import HeartData
+from django.http import JsonResponse
 import csv
 
 import pandas as pd
@@ -15,6 +16,7 @@ import warnings
 warnings.filterwarnings('ignore')
 import joblib
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
+import pickle
 
 
 def index(request):
@@ -111,7 +113,8 @@ def result(request):
             color = 'red'
             result2 = 'Есть ишемическая болезнь сердца'
 
-        return render(request, 'heartPredictionApp/result.html', {'result': result2, 'color': color})
+        return JsonResponse({'result': result2})
+        # return render(request, 'heartPredictionApp/result.html', {'result': result2, 'color': color})
     return HttpResponse('Method Not Allowed')
 
 
