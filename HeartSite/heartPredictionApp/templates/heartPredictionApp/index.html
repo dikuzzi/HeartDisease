@@ -14,9 +14,9 @@
 </head>
 <body>
     <form action="{% url 'result' %}" method="post"
-          style="margin: 40px 15vw; padding: 20px 0; border: 3px #0d6efd solid; border-radius: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5);" id="dataForm">
+          style="margin: 20px 15vw; padding: 20px 0; border: 3px #0d6efd solid; border-radius: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5);" id="dataForm">
         {% csrf_token %}
-        <div class="py-5 text-center">
+        <div class="py-5 text-center" style="padding-top: 1rem !important; padding-bottom: 1rem !important;">
           <img class="d-block mx-auto mb-4"
                src="https://img.freepik.com/premium-vector/anatomical-heart-isolated_165488-1048.jpg"
                alt="" width="144" height="114">
@@ -141,7 +141,9 @@
                 style="width: 73% !important;">Рассчитать</button>
         </div>
 
-
+        <div id="resultContainer"
+             style="font-size: clamp(1.125rem, 0.9276rem + 0.7895vw, 1.875rem); text-align: center; margin: 0 auto; padding: 20px 0; width: 73%; border-radius: 0.5rem"></div>
+<!--        <h1 class="display-5 fw-bold text-body-emphasis">Centered hero</h1>-->
     </form>
 
 <!--    <div style="width: 100%; text-align: center; margin-top: 50px;">-->
@@ -149,7 +151,7 @@
 <!--        style="width: 73% !important;">дообучение</button>-->
 <!--    </div>-->
 
-    <div id="resultContainer"></div>
+
 
     <script>
     $(document).ready(function(){
@@ -162,6 +164,7 @@
                 data: formData,
                 success: function(response){
                     $('#resultContainer').text('Результат: ' + response.result);
+                    $('#resultContainer').css('color', response.color);  // Установка цвета результата
                 }
             });
         });

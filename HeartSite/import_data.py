@@ -27,7 +27,7 @@ from heartPredictionApp.models import HeartData
 #         )
 #         obj.save()
 
-with open('heartPredictionApp/heart2.csv', 'r') as txtfile:
+with open('heartPredictionApp/heart2_MedianChol.csv', 'r') as txtfile:
     # Читаем первую строку для получения названий колонок
     columns = txtfile.readline().strip().split(';')
 

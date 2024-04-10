@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from sklearn.neighbors import KNeighborsClassifier
+
 from .models import HeartData
 from django.http import JsonResponse
 import csv
@@ -55,7 +57,7 @@ def result(request):
         df1['Cholesterol'] = ss.fit_transform(df1[['Cholesterol']])
         df1['MaxHR'] = ss.fit_transform(df1[['MaxHR']])
 
-        features = df1[df1.columns.drop(['HeartDisease', 'RestingBP', 'RestingECG', 'id'])].values
+        features = df1[df1.columns.drop(['HeartDisease', 'RestingBP', 'RestingECG', 'id','Cholesterol'])].values
         target = df1['HeartDisease'].values
         x_train, x_test, y_train, y_test = train_test_split(features, target, test_size=0.20, random_state=2)
 
@@ -65,26 +67,27 @@ def result(request):
             prediction = classifier.predict(x_test)
             cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
 
-        classifier_lr = LogisticRegression(random_state=0, C=1, penalty='l2')
-        model(classifier_lr)
+        #classifier_lr = LogisticRegression(random_state=0, C=1, penalty='l2') # для логистической регрессии
+        classifier_knn = KNeighborsClassifier(leaf_size=1, n_neighbors=15, p=1) # для k-соседей
+        model(classifier_knn)
 
         in_Age = request.POST['num1']
         in_Sex = request.POST['num2']
         in_ChestPainType = request.POST['num3']
-        in_Cholesterol = request.POST['num4']
+      #  in_Cholesterol = request.POST['num4']
         in_FastingBS = request.POST['num5']
         in_MaxHR = request.POST['num6']
         in_ExerciseAngina = request.POST['num7']
         in_Oldpeak = request.POST['num8']
         in_ST_Slope = request.POST['num9']
 
-        newDict = {"Age": in_Age, "Sex": in_Sex, "ChestPainType": in_ChestPainType,
-                   "Cholesterol": in_Cholesterol, "FastingBS": in_FastingBS, "MaxHR": in_MaxHR,
+        newDict = {"Age": in_Age, "Sex": in_Sex, "ChestPainType": in_ChestPainType,# "Cholesterol": in_Cholesterol,
+                   "FastingBS": in_FastingBS, "MaxHR": in_MaxHR,
                    "ExerciseAngina": in_ExerciseAngina, "Oldpeak": in_Oldpeak,
                    "ST_Slope": in_ST_Slope}  # новая строка
 
         df2 = data.copy(deep=True)
-        columns_to_drop = ['HeartDisease', 'RestingBP', 'RestingECG', 'id']
+        columns_to_drop = ['HeartDisease', 'RestingBP', 'RestingECG', 'id','Cholesterol']
         df2.drop(columns=columns_to_drop, axis=1, inplace=True)
 
         # df2 = df4[df4.columns.drop(['HeartDisease', 'RestingBP', 'RestingECG'])].values
@@ -97,13 +100,13 @@ def result(request):
 
         df2['Oldpeak'] = mms.fit_transform(df2[['Oldpeak']])
         df2['Age'] = ss.fit_transform(df2[['Age']])
-        df2['Cholesterol'] = ss.fit_transform(df2[['Cholesterol']])
+        ##df2['Cholesterol'] = ss.fit_transform(df2[['Cholesterol']])
         df2['MaxHR'] = ss.fit_transform(df2[['MaxHR']])
 
         last_row = df2.tail(1)
         df2 = last_row
 
-        predicted_output = classifier_lr.predict(df2)
+        predicted_output = classifier_knn.predict(df2)
 
         result2 = "error"
         if predicted_output[0] == 0:
@@ -113,7 +116,7 @@ def result(request):
             color = 'red'
             result2 = 'Есть ишемическая болезнь сердца'
 
-        return JsonResponse({'result': result2})
+        return JsonResponse({'result': result2, 'color': color})
         # return render(request, 'heartPredictionApp/result.html', {'result': result2, 'color': color})
     return HttpResponse('Method Not Allowed')
 
