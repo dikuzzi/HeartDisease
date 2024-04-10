@@ -1,3 +1,5 @@
+# удаляет все данные из таблицы
+
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'HeartSite.settings')
 from django import setup

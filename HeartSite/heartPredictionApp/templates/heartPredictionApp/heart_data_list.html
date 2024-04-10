@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Data List</title>
+</head>
+<body>
+    <h1>Heart Data List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Chest Pain Type</th>
+                <th>Resting BP</th>
+                <th>Cholesterol</th>
+                <th>Fasting BS</th>
+                <th>Resting ECG</th>
+                <th>Max HR</th>
+                <th>Exercise Angina</th>
+                <th>Oldpeak</th>
+                <th>ST Slope</th>
+                <th>Heart Disease</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in heart_data %}
+                <tr>
+                    <td>{{ data.Age }}</td>
+                    <td>{{ data.Sex }}</td>
+                    <td>{{ data.ChestPainType }}</td>
+                    <td>{{ data.RestingBP }}</td>
+                    <td>{{ data.Cholesterol }}</td>
+                    <td>{{ data.FastingBS }}</td>
+                    <td>{{ data.RestingECG }}</td>
+                    <td>{{ data.MaxHR }}</td>
+                    <td>{{ data.ExerciseAngina }}</td>
+                    <td>{{ data.Oldpeak }}</td>
+                    <td>{{ data.ST_Slope }}</td>
+                    <td>{{ data.HeartDisease }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
