@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core import serializers
 from django.http import HttpResponse
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -6,7 +7,10 @@ from .models import HeartData
 from django.http import JsonResponse
 import csv
 
+import matplotlib.pyplot as plt
 import pandas as pd
+from django.db.models import Min
+from django.db.models import Max
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, roc_auc_score, precision_score, recall_score, f1_score, \
     RocCurveDisplay
@@ -119,6 +123,46 @@ def result(request):
         return JsonResponse({'result': result2, 'color': color})
         # return render(request, 'heartPredictionApp/result.html', {'result': result2, 'color': color})
     return HttpResponse('Method Not Allowed')
+
+
+def heart_data_list(request):
+    heart_data = HeartData.objects.all()  # Получаем все записи о данных о сердце из базы данных
+    return render(request, 'heartPredictionApp/heart_data_list.html', {'heart_data': heart_data})
+
+
+def dashboard(request):
+    min_age = request.GET.get('min_age')
+    max_age = request.GET.get('max_age')
+    if min_age is None or max_age is None:
+        min_age = HeartData.objects.all().aggregate(Min('Age'))['Age__min']
+        max_age = HeartData.objects.all().aggregate(Max('Age'))['Age__max']
+
+    heart_data = HeartData.objects.filter(Age__gte=min_age, Age__lte=max_age)
+
+    data = {
+        'ChestPainType': [entry.ChestPainType for entry in heart_data],
+        'Count': [entry.ChestPainType for entry in heart_data]
+        # Используем ChestPainType для подсчета, это просто пример
+    }
+    df = pd.DataFrame(data)
+
+    # Группируем данные по типу боли в груди и считаем количество для каждого типа
+    df_grouped = df.groupby('ChestPainType').size().reset_index(name='Count')
+
+    # Создаем гистограмму с помощью matplotlib
+    plt.bar(df_grouped['ChestPainType'], df_grouped['Count'])
+    plt.xlabel('Chest Pain Type')
+    plt.ylabel('Count')
+    plt.title('Count of people by chest pain type')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    # Сохраняем график во временный файл
+    chart_path = 'heart_chart.png'
+    plt.savefig(chart_path)
+
+    return render(request, 'heartPredictionApp/dashboard.html',
+                  {'chart_path': chart_path, 'min_age': min_age, 'max_age': max_age})
 
 
 # def result(request):
