@@ -35,6 +35,16 @@
 <!--                  </div>-->
 <!--            </div>-->
 
+
+
+            <div class="col-md-6" style="width: 30%">
+                  <label for="num1" class="form-label">Возраст</label>
+                  <input type="text" class="form-control" name="num1" id="num1" placeholder="" required="">
+                  <div class="invalid-feedback">
+                    Credit card number is required
+                  </div>
+            </div>
+
             <div class="col-md-4" style="width: 30%">
                  <label for="num2" class="form-label">Пол</label>
                   <select class="form-select" name="num2" id="num2" required="">
@@ -43,14 +53,6 @@
                   </select>
                   <div class="invalid-feedback">
                     Please provide a valid state.
-                  </div>
-            </div>
-
-            <div class="col-md-6" style="width: 30%">
-                  <label for="num1" class="form-label">Возраст</label>
-                  <input type="text" class="form-control" name="num1" id="num1" placeholder="" required="">
-                  <div class="invalid-feedback">
-                    Credit card number is required
                   </div>
             </div>
         </div>
@@ -69,16 +71,6 @@
                   </div>
             </div>
 
-            <div class="col-md-6" style="width: 30%">
-                  <label for="num4" class="form-label">Уровень холестерина</label>
-                  <input type="text" class="form-control" name="num4" id="num4" placeholder="" required="">
-                  <div class="invalid-feedback">
-                    Credit card number is required
-                  </div>
-            </div>
-        </div>
-
-        <div style="display: flex; justify-content: space-evenly; margin-bottom: 20px;">
             <div class="col-md-4" style="width: 30%">
                  <label for="num5" class="form-label">Уровень сахара</label>
                   <select class="form-select" name="num5" id="num5" required="">
@@ -90,6 +82,18 @@
                   </div>
             </div>
 
+<!--            <div class="col-md-6" style="width: 30%">-->
+<!--                  <label for="num4" class="form-label">Уровень холестерина</label>-->
+<!--                  <input type="text" class="form-control" name="num4" id="num4" placeholder="" required="">-->
+<!--                  <div class="invalid-feedback">-->
+<!--                    Credit card number is required-->
+<!--                  </div>-->
+<!--            </div>-->
+        </div>
+
+        <div style="display: flex; justify-content: space-evenly; margin-bottom: 20px;">
+
+
             <div class="col-md-6" style="width: 30%">
                   <label for="num6" class="form-label">Максимальная частота пульса</label>
                   <input type="text" class="form-control" name="num6" id="num6" placeholder="" required="">
@@ -97,9 +101,30 @@
                     Credit card number is required
                   </div>
             </div>
+
+            <div class="col-md-4" style="width: 30%">
+                 <label for="num7" class="form-label">Стенокардия при физической нагрузке</label>
+                  <select class="form-select" name="num7" id="num7" required="">
+                      <option value="Y">Да (Y)</option>
+                      <option value="N">Нет (N)</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+            </div>
         </div>
 
         <div style="display: flex; justify-content: space-evenly; margin-bottom: 20px;">
+
+
+            <div class="col-md-6" style="width: 30%">
+                  <label for="num8" class="form-label">Пиковый низкий ST</label>
+                  <input type="text" class="form-control" name="num8" id="num8" placeholder="" required="">
+                  <div class="invalid-feedback">
+                    Credit card number is required
+                  </div>
+            </div>
+
             <div class="col-md-4" style="width: 30%">
                   <label for="num9" class="form-label">Наклон сегмента ST</label>
                   <select class="form-select" name="num9" id="num9" required="">
@@ -111,22 +136,17 @@
                     Please provide a valid state.
                   </div>
             </div>
-
-            <div class="col-md-6" style="width: 30%">
-                  <label for="num8" class="form-label">Пиковый низкий ST</label>
-                  <input type="text" class="form-control" name="num8" id="num8" placeholder="" required="">
-                  <div class="invalid-feedback">
-                    Credit card number is required
-                  </div>
-            </div>
         </div>
 
         <div style="display: flex; justify-content: space-evenly; margin-bottom: 20px;">
             <div class="col-md-4" style="width: 35%">
-                 <label for="num7" class="form-label">Стенокардия, вызванная физической нагрузкой</label>
-                  <select class="form-select" name="num7" id="num7" required="">
-                      <option value="Y">Да (Y)</option>
-                      <option value="N">Нет (N)</option>
+                  <label for="modelType" class="form-label">Выбор модели</label>
+                  <select class="form-select" name="modelType" id="modelType" required="">
+                      <option value="knn">KNeighbors (Рекомендуется)</option>
+                      <option value="svc">SupportVector</option>
+                      <option value="rf">RandomForest</option>
+                      <option value="lr">LogisticRegression</option>
+                      <option value="tree">DecisionTree</option>
                   </select>
                   <div class="invalid-feedback">
                     Please provide a valid state.

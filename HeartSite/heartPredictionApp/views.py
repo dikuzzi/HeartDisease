@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.core import serializers
 from django.http import HttpResponse
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
 
 from .models import HeartData
 from django.http import JsonResponse
@@ -71,9 +74,7 @@ def result(request):
             prediction = classifier.predict(x_test)
             cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
 
-        #classifier_lr = LogisticRegression(random_state=0, C=1, penalty='l2') # для логистической регрессии
-        classifier_knn = KNeighborsClassifier(leaf_size=1, n_neighbors=15, p=1) # для k-соседей
-        model(classifier_knn)
+
 
         in_Age = request.POST['num1']
         in_Sex = request.POST['num2']
@@ -84,6 +85,22 @@ def result(request):
         in_ExerciseAngina = request.POST['num7']
         in_Oldpeak = request.POST['num8']
         in_ST_Slope = request.POST['num9']
+        in_model_type = request.POST['modelType']
+
+        if (in_model_type == 'svc'):
+            our_classifier = SVC(kernel = 'sigmoid',C = 0.1, class_weight = None)
+        elif (in_model_type == 'knn'):
+            our_classifier = KNeighborsClassifier(leaf_size=1, n_neighbors=15, p=1)  # для k-соседей
+        elif (in_model_type == 'rf'):
+            our_classifier = RandomForestClassifier(max_depth = 4,random_state = 6)
+        elif (in_model_type == 'lr'):
+            our_classifier = LogisticRegression(random_state = 0,C=10,penalty= 'l2')
+        elif (in_model_type == 'tree'):
+            our_classifier = DecisionTreeClassifier(random_state = 0,max_depth = None,min_samples_leaf = 10)
+
+        #classifier_svc = SVC(kernel = 'sigmoid',C = 0.1, class_weight = None)
+        #classifier_knn = KNeighborsClassifier(leaf_size=1, n_neighbors=15, p=1)  # для k-соседей
+        model(our_classifier)
 
         newDict = {"Age": in_Age, "Sex": in_Sex, "ChestPainType": in_ChestPainType,# "Cholesterol": in_Cholesterol,
                    "FastingBS": in_FastingBS, "MaxHR": in_MaxHR,
@@ -110,7 +127,7 @@ def result(request):
         last_row = df2.tail(1)
         df2 = last_row
 
-        predicted_output = classifier_knn.predict(df2)
+        predicted_output = our_classifier.predict(df2)
 
         result2 = "error"
         if predicted_output[0] == 0:
