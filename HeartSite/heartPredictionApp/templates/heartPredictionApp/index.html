@@ -11,11 +11,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <style>
+        .form__title {
+            display: flex;
+            gap: 20px;
+            margin-left: 30px;
+        }
+        .form__link {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
+
+
     <form action="{% url 'result' %}" method="post"
-          style="margin: 20px 15vw; padding: 20px 0; border: 3px #0d6efd solid; border-radius: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5);" id="dataForm">
+          style="margin: 20px 15vw; padding: 20px 0; border: 3px #0d6efd solid; border-radius: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5);"
+          id="dataForm">
         {% csrf_token %}
+
+        <div class="form__title">
+            <a class="admin-link form__link" href="{% url 'admin_panel' %}">Админ-панель</a>
+            <a class="dataList-link form__link" href="{% url 'heart_data_list' %}">Данные</a>
+        </div>
+
+
         <div class="py-5 text-center" style="padding-top: 1rem !important; padding-bottom: 1rem !important;">
           <img class="d-block mx-auto mb-4"
                src="https://img.freepik.com/premium-vector/anatomical-heart-isolated_165488-1048.jpg"
@@ -142,11 +162,11 @@
             <div class="col-md-4" style="width: 35%">
                   <label for="modelType" class="form-label">Выбор модели</label>
                   <select class="form-select" name="modelType" id="modelType" required="">
-                      <option value="knn">KNeighbors (Рекомендуется)</option>
-                      <option value="svc">SupportVector</option>
-                      <option value="rf">RandomForest</option>
-                      <option value="lr">LogisticRegression</option>
-                      <option value="tree">DecisionTree</option>
+                      <option value="knn">k-ближайших соседей (Рекомендуется)</option>
+                      <option value="svc">Метод опорных векторов</option>
+                      <option value="rf">Случайный лес</option>
+                      <option value="lr">Логистическая регрессия</option>
+                      <option value="tree">Дерево решений</option>
                   </select>
                   <div class="invalid-feedback">
                     Please provide a valid state.
@@ -162,7 +182,9 @@
         </div>
 
         <div id="resultContainer"
-             style="font-size: clamp(1.125rem, 0.9276rem + 0.7895vw, 1.875rem); text-align: center; margin: 0 auto; padding: 20px 0; width: 73%; border-radius: 0.5rem"></div>
+             style="font-size: clamp(1.125rem, 0.9276rem + 0.7895vw, 1.875rem); text-align: center; margin: 0 auto; padding: 20px 0; width: 73%; border-radius: 0.5rem">
+
+        </div>
 <!--        <h1 class="display-5 fw-bold text-body-emphasis">Centered hero</h1>-->
     </form>
 

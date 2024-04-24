@@ -6,9 +6,15 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
+import dash
+from dash import dcc
+from dash import html
+
 from .models import HeartData
 from django.http import JsonResponse
 import csv
+from django.shortcuts import redirect
+from django.contrib import admin
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -73,7 +79,6 @@ def result(request):
             classifier.fit(x_train, y_train)
             prediction = classifier.predict(x_test)
             cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-
 
 
         in_Age = request.POST['num1']
@@ -142,9 +147,43 @@ def result(request):
     return HttpResponse('Method Not Allowed')
 
 
+
+def admin_panel_redirect(request):
+    return redirect(admin.site.urls)
+
+
+# список данных
 def heart_data_list(request):
-    heart_data = HeartData.objects.all()  # Получаем все записи о данных о сердце из базы данных
+    heart_data = HeartData.objects.all()  # Получаем все записи из базы данных
     return render(request, 'heartPredictionApp/heart_data_list.html', {'heart_data': heart_data})
+
+
+# def dashboard_view(request):
+#     # Создаем экземпляр Dash приложения
+#     app = dash.Dash(__name__)
+#
+#     # Определяем макет приложения
+#     app.layout = html.Div(children=[
+#         html.H1('Мой дашборд'),
+#         dcc.Graph(
+#             id='example-graph',
+#             figure={
+#                 'data': [
+#                     {'x': [1, 2, 3], 'y': [4, 1, 2], 'type': 'bar', 'name': 'SF'},
+#                     {'x': [1, 2, 3], 'y': [2, 4, 5], 'type': 'bar', 'name': 'Монреаль'},
+#                 ],
+#                 'layout': {
+#                     'title': 'Dash Data Visualization'
+#                 }
+#             }
+#         )
+#     ])
+#
+#     # Получаем HTML разметку вашего Dash приложения
+#     dash_html = app.index()
+#
+#     # Возвращаем HTML разметку как HTTP-ответ
+#     return HttpResponse(dash_html)
 
 
 def dashboard(request):
