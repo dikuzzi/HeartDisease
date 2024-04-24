@@ -1,36 +1,12 @@
+<!-- dashboard_template.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Мой дашборд</title>
-    <!-- Подключение стилей и скриптов Dash -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dash/1.21.0/dash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dash-core-components/1.17.1/dash_core_components.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dash-html-components/1.1.4/dash_html_components.min.js"></script>
+    <title>Django + Dash Dashboard</title>
 </head>
 <body>
-
-<div id="dash-container">
-    <!-- Здесь будет отображаться ваше Dash приложение -->
-</div>
-
-<script>
-    // Создание экземпляра Dash приложения
-    var app = new dash.Dash();
-
-    // Определение макета Dash приложения
-    app.layout = dash.html.Div([
-        dash.html.H1('Мой дашборд'),
-        dash.html.Div([
-            dash.html.Div('Привет, Dash!', id='example-graph'),
-        ])
-    ]);
-
-    // Отображение Dash приложения в указанном контейнере
-    app.mount('#dash-container');
-</script>
-
+ааа
+    <iframe src="http://localhost:8050" width="100%" height="600"></iframe>
 </body>
 </html>
