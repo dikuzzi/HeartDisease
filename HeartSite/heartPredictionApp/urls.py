@@ -12,6 +12,4 @@ urlpatterns = [
     path('result', views.result, name='result'),  # отображаем метод about из views/about
     path('data', views.heart_data_list, name='heart_data_list'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    # path('dashboard/', views.dashboard_view, name='dashboard'),
-
 ]

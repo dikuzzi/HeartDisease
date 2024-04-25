@@ -4,9 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Django + Dash Dashboard</title>
+
+    <style>
+        .home-link {
+            text-decoration: none;
+            color: #0d6efd;
+            padding-left: 20px;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+    </style>
 </head>
 <body>
-ааа
-    <iframe src="http://localhost:8050" width="100%" height="600"></iframe>
+    <a class="home-link" href="{% url 'index' %}">Вернуться в начало</a>
+    <iframe src="http://localhost:8050" width="100%" height="1050px" style="border: none"></iframe>
 </body>
 </html>
