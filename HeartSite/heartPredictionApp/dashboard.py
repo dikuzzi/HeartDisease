@@ -31,7 +31,7 @@ flexBoxMain_style = {
 }
 
 leftBox_style = {
-    'width': '400px',
+    'min-width': '400px',
 }
 
 description = {
@@ -66,10 +66,12 @@ slider_style = {
 }
 
 rightBox_style = {
-    'width': '1000px',
+    'width': '1500px',
 }
 
 flexGraph_style = {
+    'display': 'flex',
+    'max-width': '200px',
     'display': 'flex',
 }
 
@@ -226,6 +228,7 @@ def update_gender_pie_chart(age_value):
     fig = px.pie(names=gender_counts.index, values=gender_counts.values, title=f'Половое распределение (возраст {age_value[0]}-{age_value[1]} лет)')
     return fig
 
+
 @app.callback(
     Output('maxhr-oldpeak-scatter', 'figure'),
     [Input('age-slider', 'value')]
@@ -233,10 +236,23 @@ def update_gender_pie_chart(age_value):
 def update_maxhr_oldpeak_scatter(age_value):
     filtered_data = data[(data['Age'] >= age_value[0]) & (data['Age'] <= age_value[1])]
 
-    fig = px.scatter(filtered_data, x='MaxHR', y='Oldpeak',
+    # Преобразуем столбец 'Oldpeak' к числовому типу данных
+    filtered_data['Oldpeak'] = pd.to_numeric(filtered_data['Oldpeak'], errors='coerce')
+
+    # Сортируем отрицательные значения Oldpeak в обратном порядке
+    filtered_data_neg = filtered_data[filtered_data['Oldpeak'] < 0].sort_values(by='Oldpeak', ascending=False)
+
+    # Сортируем положительные значения Oldpeak в обычном порядке
+    filtered_data_pos = filtered_data[filtered_data['Oldpeak'] >= 0].sort_values(by='Oldpeak')
+
+    # Объединяем отсортированные данные
+    sorted_data = pd.concat([filtered_data_neg, filtered_data_pos])
+
+    fig = px.scatter(sorted_data, x='MaxHR', y='Oldpeak',
                      title=f'Зависимость Oldpeak от MaxHR ({age_value[0]}-{age_value[1]} лет)',
                      labels={'MaxHR': 'Максимальный пульс', 'Oldpeak': 'Oldpeak'},
-                     color="HeartDisease")
+                     color=sorted_data['HeartDisease'],)  # Окраска точек в зависимости от HeartDisease
+                     #color_discrete_map={0: 'blue', 1: 'red'},
                      # Задаем цвета для каждого значения HeartDisease
                      #color_continuous_scale=False)  # Отключаем использование цветовой палитры
     return fig
