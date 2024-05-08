@@ -184,7 +184,7 @@ app.layout = html.Div(children=[
 
 
 
-    #html.Br(),  # Добавляем разрыв строки
+    #html.Br(),
 
 
 ], style=body_style)
@@ -207,16 +207,7 @@ def update_age_output(age_value, sex_value):
 def update_chest_pain_output(age_value, sex_value):
     return update_chest_pain_graph(age_value[0], age_value[1], sex_value)
 
-# @app.callback(
-#     Output('age-hr-graph', 'figure'),
-#     [Input('age-slider', 'value')]
-# )
-# def update_age_hr_output(age_value):
-#     filtered_data = data[(data['Age'] >= age_value[0]) & (data['Age'] <= age_value[1])]
-#     fig = px.scatter(filtered_data, x='Age', y='MaxHR',
-#                      title=f"Зависимость максимального пульса от возраста (возраст {age_value[0]}-{age_value[1]} лет)",
-#                      labels={'Age': 'Возраст', 'MaxHR': 'Максимальный пульс'})
-#     return fig
+
 
 @app.callback(
     Output('gender-pie-chart', 'figure'),
