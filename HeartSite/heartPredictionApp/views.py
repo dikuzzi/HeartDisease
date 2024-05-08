@@ -41,16 +41,14 @@ def index(request):
 
 def result(request):
     if request.method == 'POST':
-        # num1 = float(request.POST['num1'])
-        # num2 = float(request.POST['num2'])
 
         all_data = HeartData.objects.all() # загрузка данных из БД
         data = pd.DataFrame(list(all_data.values())) # преобразование в датафрейм
 
         # data = pd.read_csv('HeartSite/heartPredictionApp/heart.csv') # загружаю данные из файла
 
-        mms = MinMaxScaler()  # Normalization
-        ss = StandardScaler()  # Standardization
+        mms = MinMaxScaler()
+        ss = StandardScaler()
 
         df1 = data.copy(deep=True)
 
@@ -105,12 +103,13 @@ def result(request):
 
         #classifier_svc = SVC(kernel = 'sigmoid',C = 0.1, class_weight = None)
         #classifier_knn = KNeighborsClassifier(leaf_size=1, n_neighbors=15, p=1)  # для k-соседей
+
         model(our_classifier)
 
         newDict = {"Age": in_Age, "Sex": in_Sex, "ChestPainType": in_ChestPainType,# "Cholesterol": in_Cholesterol,
                    "FastingBS": in_FastingBS, "MaxHR": in_MaxHR,
                    "ExerciseAngina": in_ExerciseAngina, "Oldpeak": in_Oldpeak,
-                   "ST_Slope": in_ST_Slope}  # новая строка
+                   "ST_Slope": in_ST_Slope}
 
         df2 = data.copy(deep=True)
         columns_to_drop = ['HeartDisease', 'RestingBP', 'RestingECG', 'id','Cholesterol']
@@ -159,7 +158,6 @@ def heart_data_list(request):
 
 
 def dashboard(request):
-
     return render(request, 'heartPredictionApp/dashboard.html')
 
 

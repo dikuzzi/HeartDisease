@@ -8,24 +8,7 @@ from heartPredictionApp.models import HeartData
 
 
 
-# with open('heartPredictionApp/heart2.csv', 'r') as csvfile:
-#     reader = csv.DictReader(csvfile)
-#     for row in reader:
-#         obj = HeartData(
-#             Age=row['Age'],  # Подставьте имя столбца из CSV файла
-#             Sex=row['Sex'],
-#             ChestPainType=row['ChestPainType'],
-#             RestingBP=row['RestingBP'],
-#             Cholesterol=row['Cholesterol'],
-#             FastingBS=row['FastingBS'],
-#             RestingECG=row['RestingECG'],
-#             MaxHR=row['MaxHR'],
-#             ExerciseAngina=row['ExerciseAngina'],
-#             Oldpeak=row['Oldpeak'],
-#             ST_Slope=row['ST_Slope'],
-#             HeartDisease=row['HeartDisease'],
-#         )
-#         obj.save()
+
 
 with open('heartPredictionApp/heart2_MedianChol.csv', 'r') as txtfile:
     # Читаем первую строку для получения названий колонок
